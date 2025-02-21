@@ -61,6 +61,12 @@
 		    <artifactId>jakarta.el-api</artifactId>
 		    <version>5.0.0</version> <!-- ou uma versão compatível -->
 		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
@@ -77,11 +83,17 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Surefire Plugin para JUnit 5 -->
+            <!-- Maven Surefire Plugin para testes -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
+            </plugin>
+
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
