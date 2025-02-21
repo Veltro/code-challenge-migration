@@ -107,22 +107,24 @@ mvn clean test
 - Entregar o projeto em container será um diferencial.
 - Fica a critério do desenvolvedor inserir ou remover dependencias do projeto para garantir o objetivo do challenge.
 
-### Passos para executar o projeto em container
+## Passos para executar o projeto em container
 
-1. Gerar o build do projeto (JAR):
+1. Instalar o Docker na máquina local ou servidor.
+	
+2. Gerar o build do projeto (JAR):
 
     ```bash
     mvn clean package
     ```
 
-2. Executar o container usando o docker-compose:
+3. Executar o container usando o docker-compose:
 
     ```bash
     docker-compose up --build
     ```
 
 
-### Endpoints da aplicação
+## Endpoints da aplicação
 
 - `GET /api/products`: Retorna uma lista de produtos.
 - `GET /api/products/{id}`: Retorna um produto específico pelo ID.
