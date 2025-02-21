@@ -6,13 +6,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+/**
+ * Teste de integração do controlador de produtos
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 class ProductControllerTest {
 
+    /**
+     * WebTestClient para teste
+     */
     @Autowired
     private WebTestClient webTestClient;
 
+    /**
+     * Testa a obtenção de todos os produtos
+     */
     @Test
     void testGetAllProducts() {
         webTestClient
@@ -26,6 +35,9 @@ class ProductControllerTest {
             .jsonPath("$[0].title").isNotEmpty();
     }
 
+    /**
+     * Testa a obtenção de um produto específico pelo ID
+     */
     @Test
     void testGetProductById() {
         webTestClient

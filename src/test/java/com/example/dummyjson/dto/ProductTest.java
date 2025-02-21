@@ -4,8 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Teste de DTO de produto
+ */
 public class ProductTest {
 
+    /**
+     * Testa os getters e setters do DTO de produto
+     */
     @Test
     public void testGetAndSetter() {
         Long expectId = 1L;
