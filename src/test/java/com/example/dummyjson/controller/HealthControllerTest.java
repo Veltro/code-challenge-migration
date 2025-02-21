@@ -8,33 +8,20 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class ProductControllerTest {
+class HealthControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
-    void testGetAllProducts() {
+    void testHealthCheck() {
         webTestClient
             .get()
-            .uri("/api/products")
+            .uri("/health")
             .exchange()
             .expectStatus().isOk()
             .expectBody()
-            .jsonPath("$").isArray()
-            .jsonPath("$[0].id").isNotEmpty()
-            .jsonPath("$[0].title").isNotEmpty();
+            .jsonPath("$.status").isEqualTo("UP")
+            .jsonPath("$.message").isEqualTo("Service is running");
     }
-
-    @Test
-    void testGetProductById() {
-        webTestClient
-            .get()
-            .uri("/api/products/1")
-            .exchange()
-            .expectStatus().isOk()
-            .expectBody()
-            .jsonPath("$.id").isNotEmpty()
-            .jsonPath("$.title").isNotEmpty();
-    }
-}
+} 

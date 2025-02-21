@@ -1,10 +1,12 @@
 package com.example.dummyjson.dto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO que representa um produto
+ */
 public class Product {
 
     @NotNull
@@ -22,7 +24,6 @@ public class Product {
     private Double price;
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }

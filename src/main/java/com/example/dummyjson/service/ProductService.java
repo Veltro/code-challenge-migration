@@ -1,30 +1,51 @@
 package com.example.dummyjson.service;
 
-import com.example.dummyjson.dto.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.example.dummyjson.dto.Product;
+import com.example.dummyjson.dto.ProductResponse;
+
+/**
+ * Service responsável pela lógica de negócio relacionada a produtos
+ */
 @Service
 public class ProductService {
 
-    private final String BASE_URL = "https://dummyjson.com/products";
+    @Value("${dummyjson.api.base-url}")
+    private String baseUrl;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private WebClient.Builder webClientBuilder;
 
+    /**
+     * Busca todos os produtos da API externa
+     * @return List<Product> Lista de produtos
+     */
     public List<Product> getAllProducts() {
-        Product[] products = restTemplate.getForObject(BASE_URL, Product[].class);
-        return Arrays.asList(products);
+        WebClient webClient = webClientBuilder.baseUrl(baseUrl.trim()).build();
+        return webClient.get()
+                .retrieve()
+                .bodyToMono(ProductResponse.class)
+                .map(ProductResponse::getProducts)
+                .block();
     }
 
+    /**
+     * Busca um produto específico pelo ID na API externa
+     * @param id ID do produto
+     * @return Product Dados do produto
+     */
     public Product getProductById(Long id) {
-        String url = BASE_URL + "/" + id;
-        return restTemplate.getForObject(url, Product.class);
+        String url = baseUrl + "/" + id;
+        WebClient webClient = webClientBuilder.baseUrl(url.trim()).build();
+        return webClient.get()
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
     }
 }
